@@ -25,5 +25,12 @@ describe('Signup', () => {
       cy.findByRole('button', { text: 'Submit' }).click();
       cy.get('input[name=password]').should('have.class', 'error');
     });
+
+    it('the password is empty', () => {
+      cy.findByLabelText('Username').type('sparkbox');
+      cy.findByRole('button', { text: 'Submit' }).click();
+      cy.findByText('enter a password').should('have.class', 'error_message');
+      cy.get('input[name=password]').should('have.class', 'error');
+    });
   });
 });
