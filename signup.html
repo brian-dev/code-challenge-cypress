@@ -159,41 +159,30 @@
       const { username, password } = e.target;
       let isValid = true;
 
-      // Check if username is empty. Use trim() to delete any whitespace to account for spaces as username.
-      // Adds error span to UI if username is empty.
-      if (!username.value.trim()) {
-        username.classList.add('error');
-        const errorSpan = document.createElement('span');
-        errorSpan.id = 'username-error';
-        errorSpan.className = 'error_message';
-        errorSpan.textContent = 'enter a username';
-        username.insertAdjacentElement('afterend', errorSpan);
-        isValid = false;
-      }
-
-      // Checks if password length is less than 10 characters but greater than 0 to account for empty passwords.
-      // If value less than 10, error span is added to UI
+      // Checks for each error condition based on tests. If no condition is met, isValid remains true and tests
+      // continue on.
+      const errorSpan = document.createElement('span');
       if (password.value.length < 10 && password.value.length > 0) {
-        password.classList.add('error');
-        const errorSpan = document.createElement('span');
-        errorSpan.id = 'password-error';
-        errorSpan.className = 'error_message';
         errorSpan.textContent = 'Password must be at least 10 characters.';
+        errorSpan.id = 'password-error';
+        password.classList.add('error');
         password.insertAdjacentElement('afterend', errorSpan);
-        isValid = false;
+      } else if (!password.value.trim()) {
+        errorSpan.textContent = 'enter a password';
+        errorSpan.id = 'password-error';
+        password.classList.add('error');
+        password.insertAdjacentElement('afterend', errorSpan);
+      } else if (!username.value.trim()) {
+        errorSpan.textContent = 'enter a username';
+        username.classList.add('error');
+        errorSpan.id = 'username-error';
+        username.insertAdjacentElement('afterend', errorSpan);
+      } else {
+        return isValid;
       }
 
-      // Check if password is empty. Use trim() to delete any whitespace to account for spaces as password.
-      // Adds error span to UI if password is empty.
-      if (!password.value.trim()) {
-        password.classList.add('error');
-        const errorSpan = document.createElement('span');
-        errorSpan.id = 'password-error';
-        errorSpan.className = 'error_message';
-        errorSpan.textContent = 'enter a password';
-        password.insertAdjacentElement('afterend', errorSpan);
-        isValid = false;
-      }
+      errorSpan.className = 'error_message';
+      isValid = false;
 
       if (isValid) {
         console.log(username.value);
