@@ -171,14 +171,26 @@
         isValid = false;
       }
 
-      // Checks if password length is less than 10 characters
+      // Checks if password length is less than 10 characters but greater than 0 to account for empty passwords.
       // If value less than 10, error span is added to UI
-      if (password.value.length < 10) {
+      if (password.value.length < 10 && password.value.length > 0) {
         password.classList.add('error');
         const errorSpan = document.createElement('span');
         errorSpan.id = 'password-error';
         errorSpan.className = 'error_message';
         errorSpan.textContent = 'Password must be at least 10 characters.';
+        password.insertAdjacentElement('afterend', errorSpan);
+        isValid = false;
+      }
+
+      // Check if password is empty. Use trim() to delete any whitespace to account for spaces as password.
+      // Adds error span to UI if password is empty.
+      if (!password.value.trim()) {
+        password.classList.add('error');
+        const errorSpan = document.createElement('span');
+        errorSpan.id = 'password-error';
+        errorSpan.className = 'error_message';
+        errorSpan.textContent = 'enter a password';
         password.insertAdjacentElement('afterend', errorSpan);
         isValid = false;
       }
