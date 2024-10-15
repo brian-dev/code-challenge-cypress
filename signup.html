@@ -144,10 +144,10 @@
       <h1 class="signup-header">Sign up</h1>
 
       <label for="username">Username</label>
-      <input type="text" data-testid="username" id="username" name="username" placeholder="Username" required>
+      <input type="text" data-testid="username" id="username" name="username">
 
       <label for="password">Password</label>
-      <input type="password" data-testid="password" id="password" name="password" placeholder="Password" required>
+      <input type="password" data-testid="password" id="password" name="password">
 
       <input type="submit" value="Submit">
     </form>
@@ -157,8 +157,24 @@
     document.querySelector('form').addEventListener('submit', (e) => {
       e.preventDefault();
       const { username, password } = e.target;
-      console.log(username.value);
-      console.log(password.value);
+      let isValid = true;
+
+      // Check if username is empty. Use trim() to delete any whitespace to account for spaces as username.
+      // Adds error span to UI if username is empty.
+      if (!username.value.trim()) {
+        username.classList.add('error');
+        const errorSpan = document.createElement('span');
+        errorSpan.id = 'username-error';
+        errorSpan.className = 'error_message';
+        errorSpan.textContent = 'enter a username';
+        username.insertAdjacentElement('afterend', errorSpan);
+        isValid = false;
+      }
+
+      if (isValid) {
+        console.log(username.value);
+        console.log(password.value);
+      }
     });
   </script>
 
