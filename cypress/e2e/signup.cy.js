@@ -19,8 +19,11 @@ describe('Signup', () => {
       cy.get('input[name=username]').should('have.class', 'error');
     });
 
-    xit('the password is less than 10 characters', () => {
-    //   add test commands
+    it('the password is less than 10 characters', () => {
+      cy.findByLabelText('Username').type('sparkbox');
+      cy.findByLabelText('Password').type('smallpass');
+      cy.findByRole('button', { text: 'Submit' }).click();
+      cy.get('input[name=password]').should('have.class', 'error');
     });
   });
 });

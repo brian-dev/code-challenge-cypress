@@ -171,6 +171,18 @@
         isValid = false;
       }
 
+      // Checks if password length is less than 10 characters
+      // If value less than 10, error span is added to UI
+      if (password.value.length < 10) {
+        password.classList.add('error');
+        const errorSpan = document.createElement('span');
+        errorSpan.id = 'password-error';
+        errorSpan.className = 'error_message';
+        errorSpan.textContent = 'Password must be at least 10 characters.';
+        password.insertAdjacentElement('afterend', errorSpan);
+        isValid = false;
+      }
+
       if (isValid) {
         console.log(username.value);
         console.log(password.value);
